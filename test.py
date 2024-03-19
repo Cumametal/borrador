@@ -1,3 +1,4 @@
+
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
@@ -27,15 +28,15 @@ if 'client_input' not in st.session_state or 'user_name' not in st.session_state
 
 # Mostrar dataframes RFQ_Control & Clientes_df
 
-col_izq, col_der = st.columns([2, 1.5])
+col_izq, col_der = st.columns([3, 1])
 
 col_izq.subheader("RFQ control")
-rfq_control = conn.read(worksheet="1 rfq control", usecols = list (range(6)),ttl=5)
+rfq_control = conn.read(worksheet="1 rfq control",ttl=5)
 rfq_control = rfq_control.dropna(how = 'all')
 col_izq.write(rfq_control)
 
 col_der.subheader("Control clientes")
-clientes_df = conn.read(worksheet="clientes_df", usecols = list (range(6)),ttl=5)
+clientes_df = conn.read(worksheet="clientes_df", ttl=5)
 clientes_df = clientes_df.dropna(how = 'all')
 col_der.write(clientes_df)
 
@@ -187,19 +188,18 @@ st.warning("Revisar si los datos están correctos para poder cargarlos al sistem
 
 #Agregar datos a la base principal RFQ Control
 
-
-
 borrar_datos = st.button("Agregar datos" )
 
 
 # Restablecer valores cuando se agregan datos a df
     
 if borrar_datos:
-    rfq_control = pd.concat([rfq_control, my_df], ignore_index=True)
+    rfq_control = rfq_control.append(my_df, ignore_index=True)
     st.header("New File")
     st.write(rfq_control)
     conn.update(worksheet="1 rfq control", data= rfq_control)
 
+    
     
 
 
