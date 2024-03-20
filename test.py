@@ -33,7 +33,7 @@ col_izq, col_der = st.columns([3, 1])
 col_izq.subheader("RFQ control")
 rfq_control = conn.read(worksheet="1 rfq control",ttl=5)
 rfq_control = rfq_control.dropna(how = 'all')
-col_izq.write(rfq_control)
+col_izq.write(rfq_control.tail(10))
 
 col_der.subheader("Control clientes")
 clientes_df = conn.read(worksheet="clientes_df", ttl=5)
@@ -56,7 +56,7 @@ def actualizar_consecutivo(cliente):
         clientes_df.at[idx, 'consecutivo_de_cliente'] += 1
         clientes_df['consecutivo_de_cliente'] = clientes_df['consecutivo_de_cliente'].astype(int)
         # Actualizar la columna 'orden_RFQ' del registro correspondiente
-        clientes_df.at[idx, 'orden_RFQ'] = f"{id_cliente}-{clientes_df.at[idx, 'consecutivo_de_cliente']}"
+        clientes_df.at[idx, 'orden_RFQ'] = f"{clientes_df.at[idx, 'id_cliente']}-{clientes_df.at[idx, 'consecutivo_de_cliente']}"
         # Guardar el valor actualizado de 'orden_RFQ' en la variable 'numero_RFQ'
         st.session_state.numero_RFQ = clientes_df.at[idx, 'orden_RFQ']
         st.success(f"Se ha actualizado el consecutivo para el cliente {cliente}. Número de RFQ: {st.session_state.numero_RFQ}")
