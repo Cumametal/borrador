@@ -197,7 +197,7 @@ borrar_datos = st.button("Agregar datos" )
 if borrar_datos:
     rfq_control = rfq_control.append(my_df, ignore_index=True)
     st.header("New File")
-    st.write(rfq_control)
+    st.write(rfq_control.tail(10))
     conn.update(worksheet="1 rfq control", data= rfq_control)
 
     
