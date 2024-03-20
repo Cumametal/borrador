@@ -54,8 +54,9 @@ def actualizar_consecutivo(cliente):
         st.write("Índice del cliente encontrado:", idx)
         # Incrementar la columna 'consecutivo_de_cliente' en 1
         clientes_df.at[idx, 'consecutivo_de_cliente'] += 1
+        clientes_df['consecutivo_de_cliente'] = clientes_df['consecutivo_de_cliente'].astype(int)
         # Actualizar la columna 'orden_RFQ' del registro correspondiente
-        clientes_df.at[idx, 'orden_RFQ'] = f"{cliente}-{clientes_df.at[idx, 'consecutivo_de_cliente']}"
+        clientes_df.at[idx, 'orden_RFQ'] = f"{id_cliente}-{clientes_df.at[idx, 'consecutivo_de_cliente']}"
         # Guardar el valor actualizado de 'orden_RFQ' en la variable 'numero_RFQ'
         st.session_state.numero_RFQ = clientes_df.at[idx, 'orden_RFQ']
         st.success(f"Se ha actualizado el consecutivo para el cliente {cliente}. Número de RFQ: {st.session_state.numero_RFQ}")
