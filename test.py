@@ -31,12 +31,12 @@ if 'client_input' not in st.session_state or 'user_name' not in st.session_state
 col_izq, col_der = st.columns([3, 1])
 
 col_izq.subheader("RFQ control")
-rfq_control = conn.read(worksheet="1 rfq control",ttl=5)
+rfq_control = conn.read(worksheet="Master_plan",ttl=5)
 rfq_control = rfq_control.dropna(how = 'all')
 col_izq.write(rfq_control.tail(5))
 
 col_der.subheader("Control clientes")
-clientes_df = conn.read(worksheet="clientes_df", ttl=5)
+clientes_df = conn.read(worksheet="Datos", ttl=5)
 clientes_df = clientes_df.dropna(how = 'all')
 col_der.write(clientes_df)
 
