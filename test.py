@@ -134,7 +134,11 @@ def create_operation_columns():
         operation_status_val = st.text_input(f"Operation Status {i}")
         machine_hr_val = st.text_input(f"Machine HR {i}")
         labour_hours_val = st.text_input(f"labour_hours{i}")
-        picture_val = st.file_uploader(f"Upload Picture {i}", type=['jpg', 'jpeg', 'png'])
+        #picture_val = st.file_uploader(f"Upload Picture {i}", type=['jpg', 'jpeg', 'png'])
+        picture_val = st.camera_input(f"Upload Picture {i}")
+
+if picture:
+    st.image(picture)
 
 def update_values():
     # Update the values for each set of columns
