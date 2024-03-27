@@ -1,2 +1,2 @@
-streamlit
+Streamlit 0.79.0
 st-gsheets-connection
